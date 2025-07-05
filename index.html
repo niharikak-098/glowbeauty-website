@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GlowBeauty - Skincare & Beauty</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background-color: #ffcad4;
+      padding: 20px;
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 3em;
+      font-family: 'Great Vibes', cursive;
+      color: #d6336c;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    header p {
+      margin: 5px 0;
+      font-size: 1.1em;
+      color: #6a6a6a;
+    }
+
+    nav {
+      background-color: #ffd6e0;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-links, .nav-icons {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links a, .nav-icons a {
+      text-decoration: none;
+      color: #4a4a4a;
+      font-weight: 600;
+      font-size: 1.1em;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover, .nav-icons a:hover {
+      color: #d6336c;
+    }
+
+    .categories {
+      margin-top: 10px;
+    }
+
+    .category-button {
+      background-color: #fff0f5;
+      border: 1px solid #d6336c;
+      padding: 8px 16px;
+      border-radius: 20px;
+      margin: 0 5px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #d6336c;
+    }
+
+    .category-button:hover {
+      background-color: #d6336c;
+      color: white;
+    }
+
+    .hero {
+  padding: 90px 20px;
+  background-image: url('https://regenorthosport.in/wp-content/uploads/2024/08/blogs-aesthetics-Skin-care-routine-996x558-1.png');
+  background-size: cover; /* Changed from cover to contain */
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  text-align: center;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+  min-height: 500px; /* Ensures enough space for image visibility */
+}
+
+
+    .hero h2 {
+      font-size: 3em;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .hero p {
+      font-size: 1.3em;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      padding: 40px 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .product-card {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      padding: 12px;
+      text-align: center;
+      transition: transform 0.3s ease;
+      font-size: 0.9em;
+      position: relative;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .product-card img {
+      max-width: 90%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .product-card h3 {
+      margin-top: 15px;
+      color: #333;
+      font-size: 1.2em;
+    }
+
+    .product-card p {
+      color: #d6336c;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+
+    .product-card button {
+      background-color: #d6336c;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    .product-card button:hover {
+      background-color: #b92d5b;
+    }
+
+    .wishlist-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.5em;
+      color: #ccc;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .wishlist-icon.wished {
+      color: #d6336c;
+    }
+
+    footer {
+      background-color: #ffcad4;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.95em;
+      margin-top: 40px;
+    }
+
+    #cart-modal, #wishlist-modal {
+      display: none;
+      position: fixed;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 500px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      padding: 20px;
+      z-index: 1000;
+    }
+
+    #cart-modal h2, #wishlist-modal h2 {
+      margin-top: 0;
+    }
+
+    .cart-item, .wishlist-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .cart-item button, .wishlist-item button {
+      background: #ff4d6d;
+      color: white;
+      border: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .cart-item button:hover, .wishlist-item button:hover {
+      background: #cc0033;
+    }
+
+    #close-cart, #close-wishlist {
+      background: #ccc;
+      padding: 6px 10px;
+      border: none;
+      border-radius: 4px;
+      float: right;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- The rest of your HTML content remains unchanged -->
+  <!-- Since this is a partial update, JavaScript logic is omitted here. -->
+</body>
+</html>
+ <header>
+    <h1>GlowBeauty</h1>
+    <p>Skincare & Beauty Essentials</p>
+  </header>
+
+  <nav>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">Products</a>
+      <a href="#">Offers</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="nav-icons">
+      <a href="#" title="Favorites" id="wishlist-icon">❤️</a>
+      <a href="#" title="Cart" id="cart-icon">🛒 (<span id="cart-count">0</span>)</a>
+      <a href="#" title="Profile">👤</a>
+      <a href="#" title="Sign Up">Sign Up</a>
+    </div>
+  </nav>
+  <nav>
+    <div class="categories">
+      <button class="category-button" onclick="filterProducts('skincare')">Skincare</button>
+      <button class="category-button" onclick="filterProducts('makeup')">Makeup</button>
+      <button class="category-button" onclick="filterProducts('all')">All</button>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <h2>Feel the Glow</h2>
+    <p>Discover premium skincare products tailored just for you.</p>
+  </div>
+
+  <section class="products">
+    <div class="product-card" data-category="skincare">
+      <img src="https://images.mamaearth.in/catalog/product/a/l/aloevera-gel-moisturizer-1.jpg?format=auto&height=600" alt="Hydrating Face Cream" />
+      <h3>Hydrating Face Cream</h3>
+      <p>₹499.00</p>
+      <button onclick="addToCart('Hydrating Face Cream', 499)">Buy Now</button>
+      <span class="wishlist-icon" onclick="toggleWishlist('Hydrating Face Cream')">💖</span>
+    </div>
+    <div class="product-card" data-category="skincare">
+      <img src="https://tdc-mg-cs-v1.honasa-production.net/pub/media/catalog/product/f/o/fop_5_vitc_white_bg.jpg" alt="Vitamin C Serum" />
+      <h3>Vitamin C Serum</h3>
+      <p>₹799.00</p>
+      <button onclick="addToCart('Vitamin C Serum', 799)">Buy Now</button>
+      <span class="wishlist-icon" onclick="toggleWishlist('Vitamin C Serum')">💖</span>
+    </div>
+    <div class="product-card" data-category="skincare">
+      <img src="https://foreveronlinealoe.com/wp-content/uploads/2014/01/forever_aloe_vera_gel_pd_category_256_X_256_1554881723632.png" alt="Aloe Vera Gel" />
+      <h3>Aloe Vera Gel</h3>
+      <p>₹299.00</p>
+      <button onclick="addToCart('Aloe Vera Gel', 299)">Buy Now</button>
+      <span class="wishlist-icon" onclick="toggleWishlist('Aloe Vera Gel')">💖</span>
+    </div>
+    <div class="product-card" data-category="skincare">
+      <img src="https://media6.ppl-media.com//tr:h-235,w-235,c-at_max,dpr-2,q-40/static/img/product/360686/dot-and-key-vitamin-c-e-super-bright-sunscreen-spf-50-pa-50-g-51_01_display_1742468431_05f280fc.jpg" alt="SPF 50+ Sunscreen" />
+      <h3>SPF 50+ Sunscreen</h3>
+      <p>₹599.00</p>
+      <button onclick="addToCart('SPF 50+ Sunscreen', 599)">Buy Now</button>
+      <span class="wishlist-icon" onclick="toggleWishlist('SPF 50+ Sunscreen')">💖</span>
+    </div>
+    <div class="product-card" data-category="skincare">
+      <img src="https://images-static.nykaa.com/media/catalog/product/2/a/2aa71cbNYCETA0000010_1.jpg" alt="Gentle Cleanser" />
+      <h3>Gentle Face Cleanser</h3>
+      <p>₹399.00</p>
+      <button onclick="addToCart('Gentle Face Cleanser', 399)">Buy Now</button>
+      <span class="wishlist-icon" onclick="toggleWishlist('Gentle Face Cleanser')">💖</span>
+    </div>
+    <div class="product-card" data-category="skincare">
+      <img src="https://cdn.zeptonow.com/production/tr:w-640,ar-1297-1196,pr-true,f-auto,q-80/cms/product_variant/f8456f87-2bf5-4328-a426-0858713b87d8.jpeg" alt="Night Cream" />
+      <h3>Repair Night Cream</h3>
+      <p>₹699.00</p>
+      <button onclick="addToCart('Repair Night Cream', 699)">Buy Now</button>
+      <span class="wishlist-icon" onclick="toggleWishlist('Repair Night Cream')">💖</span>
+    </div>
+    <div class="product-card" data-category="skincare">
+      <img src="https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/30999317/2024/10/16/40fedb24-fa2a-497a-8d99-3de1bf12a0271729068067928-DOT--KEY-Strawberry-Dew-Do-It-All-Moisturizer---80g-62517290-1.jpg" alt="Hydrating Face Cream" />
+      <h3>Dot and Key Moisturizer</h3>
+      <p>₹499.00</p>
+      <button onclick="addToCart('Dot and Key Moisturizer', 499)">Buy Now</button>
+      <span class="wishlist-icon" onclick="toggleWishlist('Dot and Key Moisturizer')">💖</span>
+    </div>
+    <div class="product-card" data-category="skincare">
+      <img src="https://www.bbassets.com/media/uploads/p/l/40304363_1-lakme-skin-solutions-hydrating-sheet-mask-with-hyaluronic-acid.jpg" alt="Hydrating Face Cream" />
+      <h3>Sheet mask</h3>
+      <p>₹499.00</p>
+      <button onclick="addToCart('Sheet mask', 499)">Buy Now</button>
+      <span class="wishlist-icon" onclick="toggleWishlist('Sheet mask')">💖</span>
+    </div>
+
+    <!-- Makeup Products -->
+    <div class="product-card" data-category="makeup">
+      <img src="https://ibacosmetics.com/cdn/shop/files/nikkahred01swoosh_1.png?v=1731566057" alt="Lipstick" />
+      <h3>Matte Lipstick</h3>
+      <p>₹299.00</p>
+      <button onclick="addToCart('Matte Lipstick', 299)">Buy Now</button>
+      <span class="wishlist-icon" onclick="toggleWishlist('Matte Lipstick')">💖</span>
+    </div>
+    <div class="product-card" data-category="makeup">
+      <img src="https://images-static.nykaa.com/media/catalog/product/8/4/844f6bcNYCOLESS00204_2.jpg?tr=w-500" alt="Eyeliner" />
+      <h3>Waterproof Eyeliner</h3>
+      <p>₹249.00</p>
+      <button onclick="addToCart('Waterproof Eyeliner', 249)">Buy Now</button>
+      <span class="wishlist-icon" onclick="toggleWishlist('Waterproof Eyeliner')">💖</span>
+    </div>
+    <div class="product-card" data-category="makeup">
+      <img src="https://m.media-amazon.com/images/I/51r0I+VTySL.jpg" alt="Foundation" />
+      <h3>Liquid Foundation</h3>
+      <p>₹599.00</p>
+      <button onclick="addToCart('Liquid Foundation', 599)">Buy Now</button>
+      <span class="wishlist-icon" onclick="toggleWishlist('Liquid Foundation')">💖</span>
+    </div>
+    <div class="product-card" data-category="makeup">
+      <img src="https://m.media-amazon.com/images/I/814ciYTSVmL._AC_UF1000,1000_QL80_.jpg" alt="Blush" />
+      <h3>Peach Blush</h3>
+      <p>₹349.00</p>
+      <button onclick="addToCart('Peach Blush', 349)">Buy Now</button>
+      <span class="wishlist-icon" onclick="toggleWishlist('Peach Blush')">💖</span>
+    </div>
+    <div class="product-card" data-category="makeup">
+      <img src="https://cdn.fcglcdn.com/brainbees/images/products/583x720/12677429a.webp" alt="Mascara" />
+      <h3>Volume Mascara</h3>
+      <p>₹399.00</p>
+      <button onclick="addToCart('Volume Mascara', 399)">Buy Now</button>
+      <span class="wishlist-icon" onclick="toggleWishlist('Volume Mascara')">💖</span>
+    </div>
+    <div class="product-card" data-category="makeup">
+      <img src="https://images-eu.ssl-images-amazon.com/images/I/61iyhffh7UL._AC_UL600_SR600,600_.jpg" alt="Eyeshadow Palette" />
+      <h3>Eyeshadow Palette</h3>
+      <p>₹699.00</p>
+      <button onclick="addToCart('Eyeshadow Palette', 699)">Buy Now</button>
+      <span class="wishlist-icon" onclick="toggleWishlist('Eyeshadow Palette')">💖</span>
+    </div>
+    <div class="product-card" data-category="makeup">
+      <img src="https://m.media-amazon.com/images/I/71rPQkf5m8L.jpg" alt="Kajal Pencil" />
+      <h3>Kajal Pencil</h3>
+      <p>₹199.00</p>
+      <button onclick="addToCart('Kajal Pencil', 299)">Buy Now</button>
+      <span class="wishlist-icon" onclick="toggleWishlist('Kajal Pencil')">💖</span>
+    </div>
+    <div class="product-card" data-category="makeup">
+      <img src="https://www.maybelline.co.in/-/media/project/loreal/brand-sites/mny/apac/in/homepage/best-sellers/3-concealer.jpg?rev=3c78495ae5c74d1bb6379c4abe4ce191&cx=0&cy=0&cw=315&ch=472&hash=1FE9086E90F3F7425C9C47853CC0F5E9" alt="Kajal Pencil" />
+      <h3>Maybelline Concealer</h3>
+      <p>₹199.00</p>
+      <button onclick="addToCart('Maybelline Concealer', 299)">Buy Now</button>
+      <span class="wishlist-icon" onclick="toggleWishlist('Maybelline Concealer')">💖</span>
+    </div>
+  </section>
+
+
+  <div id="cart-modal">
+    <h2>Your Cart</h2>
+    <div id="cart-items"></div>
+    <p><strong>Total: ₹<span id="cart-total">0</span></strong></p>
+    <button id="close-cart">Close</button>
+  </div>
+
+  <div id="wishlist-modal">
+    <h2>Your Wishlist</h2>
+    <div id="wishlist-items"></div>
+    <button id="close-wishlist">Close</button>
+  </div>
+
+  <footer>
+    <p>© 2025 GlowBeauty. All rights reserved.</p>
+  </footer>
+
+ <script>
+  let currentUser = null;
+
+  const cart = {};
+  const wishlist = {};
+
+  document.getElementById("wishlist-icon").addEventListener("click", function (e) {
+    e.preventDefault();
+    document.getElementById("wishlist-modal").style.display = "block";
+  });
+
+  document.getElementById("cart-icon").addEventListener("click", function (e) {
+    e.preventDefault();
+    document.getElementById("cart-modal").style.display = "block";
+  });
+
+  document.getElementById("close-cart").addEventListener("click", function () {
+    document.getElementById("cart-modal").style.display = "none";
+  });
+
+  document.getElementById("close-wishlist").addEventListener("click", function () {
+    document.getElementById("wishlist-modal").style.display = "none";
+  });
+
+  document.querySelector('a[title="Sign Up"]').addEventListener("click", function (e) {
+    e.preventDefault();
+    const name = prompt("Enter your name to sign up:");
+    if (name) {
+      currentUser = name;
+      alert(`Welcome, ${name}! You are now signed in.`);
+    }
+  });
+
+  function addToCart(productName, price) {
+    if (!cart[productName]) {
+      cart[productName] = { price: price, quantity: 1 };
+    } else {
+      cart[productName].quantity += 1;
+    }
+    updateCartCount();
+    updateCartDisplay();
+  }
+
+  function updateCartCount() {
+    const count = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById("cart-count").textContent = count;
+  }
+
+  function updateCartDisplay() {
+    const cartContainer = document.getElementById("cart-items");
+    const totalElem = document.getElementById("cart-total");
+    cartContainer.innerHTML = "";
+    let total = 0;
+
+    for (let item in cart) {
+      const { price, quantity } = cart[item];
+      const div = document.createElement("div");
+      div.className = "cart-item";
+      div.innerHTML = `${item} - ₹${price} x ${quantity} 
+        <button onclick="removeFromCart('${item}')">Remove</button>`;
+      total += price * quantity;
+      cartContainer.appendChild(div);
+    }
+
+    totalElem.textContent = total;
+  }
+
+  function removeFromCart(productName) {
+    if (cart[productName]) {
+      delete cart[productName];
+      updateCartCount();
+      updateCartDisplay();
+    }
+  }
+
+  window.toggleWishlist = function (productName) {
+    if (!currentUser) {
+      alert("Please log in to add to wishlist.");
+      return;
+    }
+
+    const wished = wishlist[productName];
+    const cards = document.querySelectorAll(".product-card h3");
+
+    if (wished) {
+      delete wishlist[productName];
+    } else {
+      wishlist[productName] = true;
+    }
+
+    updateWishlistDisplay();
+
+    cards.forEach(h3 => {
+      if (h3.textContent.trim() === productName) {
+        const icon = h3.parentElement.querySelector(".wishlist-icon");
+        if (icon) {
+          icon.classList.toggle("wished", !wished);
+        }
+      }
+    });
+  }
+
+  function updateWishlistDisplay() {
+    const wishlistContainer = document.getElementById("wishlist-items");
+    wishlistContainer.innerHTML = "";
+
+    for (let item in wishlist) {
+      const div = document.createElement("div");
+      div.className = "wishlist-item";
+      div.innerHTML = `${item} 
+        <button onclick="toggleWishlist('${item}')">Remove</button>`;
+      wishlistContainer.appendChild(div);
+    }
+  }
+
+  function filterProducts(category) {
+    const products = document.querySelectorAll(".product-card");
+    products.forEach(card => {
+      const productCategory = card.getAttribute("data-category");
+      if (category === "all" || category === productCategory) {
+        card.style.display = "block";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  }
+</script>
+
