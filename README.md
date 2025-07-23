@@ -21,8 +21,9 @@ GlowBeauty is a frontend-based e-commerce website designed for skincare and make
 ---
 
 ## 📸 Screenshots
-![Homepage Screenshot](![Uploading home.png…]()
-)
+[![Homepage Screenshot](homepage_screenshot.png)](homepage_screenshot.png)
+
+
 
 
 
