@@ -21,13 +21,16 @@ GlowBeauty is a frontend-based e-commerce website designed for skincare and make
 ---
 
 ## 📸 Screenshots
-![Homepage][Uploading home.png…]()
-.png)
+![Homepage Screenshot](images/Uploading_home.png)
 
 ## 👩‍💻 About the Developer
 **Niharika**  
-📧 Email: niharikak0313@gmail.com 
-🔗 LinkedIn:www.linkedin.com/in/niharika-k-9502b32a4  
+## 👩‍💻 About the Developer
+
+**Niharika**  
+📧 Email: [niharikak0313@gmail.com](mailto:niharikak0313@gmail.com)  
+🔗 LinkedIn: [linkedin.com/in/niharika-k](https://www.linkedin.com/in/niharika-k-9502b32a4)
+  
   
 
 
